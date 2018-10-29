@@ -33,6 +33,7 @@ ax.tick_params(labelbottom=False, bottom=False)
 ax.tick_params(labelleft=False, left=False)
 # 現在地S0に緑丸を描画する
 line, = ax.plot([0.5], [2.5], marker="o", color='g', markersize=60)
+
 plt.show()
 theta_0 = np.array([[np.nan, 1, 1, np.nan],  # s0
                     [np.nan, 1, np.nan, 1],  # s1
