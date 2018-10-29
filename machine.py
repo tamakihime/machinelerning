@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 # 初期位置での迷路の様子
 
 # 図を描く大きさと、図の変数名を宣言
@@ -114,5 +115,5 @@ def animate(i):
 
 # 　初期化関数とフレームごとの描画関数を用いて動画を作成する
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames=len(
-    state_history), interval=200, repeat=False)
-anim.save("output.html", writer='html')
+    state_history), interval=500, repeat=False)
+anim.save("output.gif", writer='imagemagick')
