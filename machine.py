@@ -47,6 +47,21 @@ def first_describe():
     return [line, theta_0, fig]
 
 
+def get_Q(theta_0):
+    [a,b]=theta_0.shape
+    Q=np.random.rand(a, b)*theta_0
+    return Q
+
+
+def simple_convert_into_pi_from_theta(theta):
+    [m,n]=theta.shape
+    pi = np.zeros((m,n))
+    for i in range(0,m):
+        pi[i,:]=theta[i,:]/np.nansum(theta_0[i,:])
+    pi =np.nan_to_num(pi)
+    return pi
+
+
 def softmax_convert_into_pi_from_theta(theta):
     '''ソフトマックス関数で割合を計算する'''
 
