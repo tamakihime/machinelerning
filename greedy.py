@@ -47,7 +47,7 @@ def first_describe():
     return [line, theta_0, fig]
 
 
-line, theta_0, fig = first_describe()
+
 
 
 def get_Q(theta_0):
@@ -65,13 +65,13 @@ def simple_convert_into_pi_from_theta(theta):
     return pi
 
 
-pi_0 = simple_convert_into_pi_from_theta(theta_0)
+
 
 
 def get_action(s, Q, epsilon, pi_0):
     derection = ["up", "right", "down", "left"]
 
-    if np.random.rand() < epsion:
+    if np.random.rand() < epsilon:
         next_direction = np.random.choice(derection, p=pi_0[s, :])
     else:
         next_direction = derection[np.nanargmax(Q[s, :])]
@@ -126,3 +126,14 @@ def goal_maze_ret_s_a_Q(Q, epsilon, eta, gamma, pi):
             r = 0
             a_next = get_action(s_next, Q, epsilon, pi)
         Q = sarsa(s, a, r, s_next, a_next, Q, eta, gamma)
+        if s_next == 8:
+            break
+        else:
+            s = s_next
+    return [s_a_history, Q]
+
+
+line, theta_0, fig = first_describe()
+pi_0 = simple_convert_into_pi_from_theta(theta_0)
+eta=0.1
+gamma=0.9
