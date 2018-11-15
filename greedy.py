@@ -68,7 +68,7 @@ def simple_convert_into_pi_from_theta(theta):
 pi_0 = simple_convert_into_pi_from_theta(theta_0)
 
 
-def get_action(s, Q, epsion, pi_0):
+def get_action(s, Q, epsilon, pi_0):
     derection = ["up", "right", "down", "left"]
 
     if np.random.rand() < epsion:
@@ -97,7 +97,7 @@ def get_s_next(s, a, Q, epsilon, pi_0):
         s_next = s + 3
 
     elif next_direction == "left":
-        s_next = s = 1
+        s_next = s - 1
 
     return s_next
 
@@ -112,4 +112,17 @@ def sarsa(s, a, r, s_next, a_next, Q, eta, gamma):
 
 def goal_maze_ret_s_a_Q(Q, epsilon, eta, gamma, pi):
     s = 0
-    a = a_next = get_action(s,Q,epsilon,pi)
+    a = a_next = get_action(s, Q, epsilon, pi)
+    s_a_history = [[0, np.nan]]
+    while 1:
+        a = a_next
+        s_a_history[-1][1] = a
+        s_next = get_s_next(s, a, Q, epsilon, pi)
+        s_a_history.append([s_next, np.nan])
+        if s_next == 8:
+            r = 1
+            a_next = np.nan
+        else:
+            r = 0
+            a_next = get_action(s_next, Q, epsilon, pi)
+        Q = sarsa(s, a, r, s_next, a_next, Q, eta, gamma)
