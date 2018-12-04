@@ -47,9 +47,6 @@ def first_describe():
     return [line, theta_0, fig]
 
 
-
-
-
 def get_Q(theta_0):
     [a, b] = theta_0.shape
     Q = np.random.rand(a, b) * theta_0
@@ -65,15 +62,14 @@ def simple_convert_into_pi_from_theta(theta):
     return pi
 
 
-
-
-
 def get_action(s, Q, epsilon, pi_0):
+    global action
     derection = ["up", "right", "down", "left"]
 
     if np.random.rand() < epsilon:
         next_direction = np.random.choice(derection, p=pi_0[s, :])
     else:
+        # noinspection PyTypeChecker
         next_direction = derection[np.nanargmax(Q[s, :])]
     if next_direction == "up":
         action = 0
@@ -87,6 +83,7 @@ def get_action(s, Q, epsilon, pi_0):
 
 
 def get_s_next(s, a, Q, epsilon, pi_0):
+    global s_next
     direction = ["up", "right", "down", "left"]
     next_direction = direction[a]
     if next_direction == "up":
@@ -95,7 +92,6 @@ def get_s_next(s, a, Q, epsilon, pi_0):
         s_next = s + 1
     elif next_direction == "left":
         s_next = s + 3
-
     elif next_direction == "left":
         s_next = s - 1
 
@@ -134,6 +130,6 @@ def goal_maze_ret_s_a_Q(Q, epsilon, eta, gamma, pi):
 
 
 line, theta_0, fig = first_describe()
-pi_0 = simple_convert_into_pi_from_theta(theta_0)
-eta=0.1
-gamma=0.9
+Q = get_Q(theta_0)
+eta = 0.1
+gamma = 0.9
